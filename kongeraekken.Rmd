@@ -1,0 +1,42 @@
+---
+title: "kongeraekken"
+author: "Anna Aagaard Præst"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r library and loading, include=FALSE, eval=TRUE}
+library(tidyverse)
+kongeraekken <- read.csv("/Users/annapraest/Desktop/AU historie/3. semester/Teori og metode/digital metode/DM homework/wk39/kongeraekken_homework_week39.csv", sep = ";")
+
+```
+
+```{r data,include=TRUE, eval=TRUE, echo=TRUE}
+
+kongeraekken[["regent"]]
+regent <- kongeraekken[["regent"]]
+fødsel_år <- kongeraekken[["foedsel_år"]]
+første_regeringsperiode_start <- kongeraekken[["foerste_regeringsperiode_start"]]
+første_regeringsperiode_slut <- kongeraekken[["foerste_regeringsperiode_slut"]]
+antal_regeringsår <- kongeraekken[["antal_regeringsår"]]
+```
+
+```{r converting,include=TRUE, eval=TRUE, echo=TRUE}
+kongeraekken$regent <- factor(kongeraekken$regent, levels = unique(kongeraekken$regent))
+class(kongeraekken$antal_regeringsår)
+kongeraekken$antal_regeringsår <- as.numeric(as.character(kongeraekken$antal_regeringsår))
+
+
+```
+```{r plot,include=TRUE, eval=TRUE, echo=TRUE}
+
+ggplot(kongeraekken, aes(x = antal_regeringsår, y = regent)) +
+  geom_bar(stat = "identity", fill = "darkblue", orientation = "y") +
+  labs(title = "Regeringstid", x = "Antal regeringsår", y = "Kongerækken")  
+
+```
